@@ -1,0 +1,5 @@
+DECLARE myportal CURSOR FOR SELECT * FROM (SELECT * FROM tbl_sun_loc_site WHERE id BETWEEN ((SELECT a.id FROM (SELECT id FROM tbl_sun_loc_site WHERE     siteid=:SS AND lt::DATE=':DD' AND events IS NULL AND :FF = (SELECT max(:FF) FROM tbl_sun_loc_site where lt::DATE=':DD' AND siteid=:SS)    ORDER BY lt) a, (SELECT id FROM tbl_sun_loc_site WHERE     siteid=:SS AND lt::DATE=':DD' AND events IS NULL AND :FF = (SELECT min(:FF) FROM tbl_sun_loc_site where lt::DATE=':DD' AND siteid=:SS)    ORDER BY lt) b  where b.id-a.id=1) ) - :NN AND ((SELECT a.id FROM (SELECT id FROM tbl_sun_loc_site WHERE     siteid=:SS AND lt::DATE=':DD' AND events IS NULL AND :FF = (SELECT max(:FF) FROM tbl_sun_loc_site where lt::DATE=':DD' AND events IS NULL AND siteid=:SS)    ORDER BY lt) a, (SELECT id FROM tbl_sun_loc_site WHERE     siteid=:SS AND lt::DATE=':DD' AND     events IS NULL AND :FF = (SELECT min(:FF) FROM tbl_sun_loc_site where lt::DATE=':DD' AND events IS NULL AND siteid=:SS)    ORDER BY lt) b  where b.id-a.id=1) ) + :NN) c WHERE c.events IS NULL ORDER BY c.id;
+<:DD><2018-03-20>
+<:FF><topocentricra>
+<:SS><9>
+<:NN><4>
